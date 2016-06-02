@@ -68,17 +68,45 @@ function onRun(context) {
   // This is a dictionary containing a reference to the document,
   // the current selection, the plugin, curren URL and more.
 
-  // One of the things that the context contains is an api function, which
-  // when called gives you back a series javascript objects that you can
+  // One of the things that the context contains is a sketch api function,
+  // which when called gives you back a javascript objects that you can
   // use to interact with Sketch.
   //
   // There are ways of interacting directly with the Sketch classes instead,
   // but by going through the API, you gain an extra level of protection
   // against changes to Sketch, so it's the recommended way to work if you can.
   //
-  // So first, let's fetch the API into a variable we'll call `sketch`:
+  // So first, let's fetch the sketch object.
   var sketch = context.api()
-  print(sketch)
+  sketch.log("Sketch version is " + sketch.version)
+  sketch.log("Sketch API version is " + sketch.api_version)
+
+  // We are going to make a new image layer using the PDF file we included in
+  // our Resources folder. To do this, we'll need to fetch the full location
+  // of the resource.
+  var imageURL = sketch.resourceNamed('World.pdf')
+  sketch.log(imageURL)
+
+  // Next we want to use the api to extract the selected page of the front-most document
+  var document = sketch.frontDocument
+  var page = document.selectedPage
+
+  // we want to make a new group on the page,
+  // then put a new image layer into it, and set
+  // that layer to use our resource image
+  var group = page.newGroup("Group", sketch.rectangle(0, 0, 200, 200))
+  var image = group.newImage("Image", sketch.rectangle(50, 50, 100, 100))
+  image.setImageFromURL(imageURL)
+
+  // lets also make a text layer with a message
+  // to the world on it...
+  var textFrame = sketch.rectangle(0, 160, 200, 30)
+  var text = group.newText("Text", textFrame)
+  text.fixedWidth = true
+  text.useSystemFontOfSize(24)
+  text.alignment = NSTextAlignmentCenter
+  text.text = "Hello World"
+  text.frame = textFrame
 };
 
 // And that's it. Job done.
