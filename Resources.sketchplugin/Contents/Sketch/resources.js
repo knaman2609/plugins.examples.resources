@@ -94,19 +94,13 @@ function onRun(context) {
   // we want to make a new group on the page,
   // then put a new image layer into it, and set
   // that layer to use our resource image
-  var group = page.newGroup("Group", sketch.rectangle(0, 0, 200, 200))
-  var image = group.newImage("Image", sketch.rectangle(50, 50, 100, 100))
-  image.setImageFromURL(imageURL)
+  var group = page.newGroup({frame: sketch.rectangle(0, 0, 200, 200)})
+  var image = group.newImage({frame: sketch.rectangle(50, 50, 100, 100), imageURL:imageURL})
 
   // lets also make a text layer with a message
   // to the world on it...
-  var textFrame = sketch.rectangle(0, 160, 200, 30)
-  var text = group.newText("Text", textFrame)
-  text.fixedWidth = true
-  text.useSystemFontOfSize(24)
-  text.alignment = NSTextAlignmentCenter
-  text.text = "Hello World"
-  text.frame = textFrame
+  var text = group.newText({fixedWidth: true, alignment: NSTextAlignmentCenter, systemFontSize: 24, text:"Hello World"})
+  text.frame = sketch.rectangle(0, 160, 200, 30) // adjust the frame last, after the font/size/alignment etc has been set up
 };
 
 // And that's it. Job done.
