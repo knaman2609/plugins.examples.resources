@@ -85,15 +85,13 @@ function onRun(context) {
   // our Resources folder. To do this, we'll need to fetch the full location
   // of the resource.
   var imageURL = sketch.resourceNamed('World.pdf')
-  sketch.log(imageURL)
 
   // Next we want to use the api to extract the selected page of the front-most document
   var document = sketch.frontDocument
   var page = document.selectedPage
 
-  // we want to make a new group on the page,
-  // then put a new image layer into it, and set
-  // that layer to use our resource image
+  // we want to make a new group on the page, then put a new image layer into it, and set
+  // that layer to use the resource image we located earlier
   var group = page.newGroup({frame: sketch.rectangle(0, 0, 200, 200)})
   var image = group.newImage({frame: sketch.rectangle(50, 50, 100, 100), imageURL:imageURL})
 
