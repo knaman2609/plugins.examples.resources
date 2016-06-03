@@ -87,7 +87,7 @@ function onRun(context) {
   var imageURL = sketch.resourceNamed('World.pdf')
 
   // Next we want to use the api to extract the selected page of the front-most document
-  var document = sketch.frontDocument
+  var document = sketch.selectedDocument
   var page = document.selectedPage
 
   // we want to make a new group on the page, then put a new image layer into it, and set
