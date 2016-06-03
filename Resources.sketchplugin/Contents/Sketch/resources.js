@@ -69,12 +69,15 @@ function onRun(context) {
   // the current selection, the plugin, curren URL and more.
 
   // One of the things that the context contains is a sketch api function,
-  // which when called gives you back a javascript objects that you can
+  // which when called gives you back a javascript object that you can
   // use to interact with Sketch.
   //
-  // There are ways of interacting directly with the Sketch classes instead,
-  // but by going through the API, you gain an extra level of protection
-  // against changes to Sketch, so it's the recommended way to work if you can.
+  // Note: *There are ways of interacting directly with the raw Sketch objects instead,
+  // but these tend to change when we update Sketch, which can make your plugin scripts
+  // break easily. By going through the javascript API, you gain an extra level of protection
+  // against changes to Sketch - since we fix the API when an underlying change to Sketch
+  // would have broken it - so it's the recommended way to work if you can.*
+  //
   //
   // So first, let's fetch the sketch object.
   var sketch = context.api()
