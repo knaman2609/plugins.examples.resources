@@ -56,18 +56,18 @@
 
 // ## Code
 // ### Defining The Run Handler
-//
+
 // In the manifest, we told Sketch that every time the "Bundled Resources Example" menu is selected,
 // we want to execute a javascript handler called `onRun` in the `resources.js` file.
-//
+
 // So now we need to put some code into the `resources.js` file to implement that command.
 
 function onRun(context) {
-
+  // ### Using The Sketch API
   // We are passed a context variable when we're run.
   // This is a dictionary containing a reference to the document,
   // the current selection, the plugin, curren URL and more.
-
+  //
   // One of the things that the context contains is a sketch api function,
   // which when called gives you back a javascript object that you can
   // use to interact with Sketch.
@@ -77,34 +77,38 @@ function onRun(context) {
   // break easily. By going through the javascript API, you gain an extra level of protection
   // against changes to Sketch - since we fix the API when an underlying change to Sketch
   // would have broken it - so it's the recommended way to work if you can.*
-  //
-  //
+
   // So first, let's fetch the sketch object.
   var sketch = context.api()
   sketch.log("Sketch version is " + sketch.version)
   sketch.log("Sketch API version is " + sketch.api_version)
+
+  // ### Finding Our Embedded Resource
 
   // We are going to make a new image layer using the PDF file we included in
   // our Resources folder. To do this, we'll need to fetch the full location
   // of the resource.
   var imageURL = sketch.resourceNamed('World.pdf')
 
+  // ### Making Some New Layers
+
   // Next we want to use the api to extract the selected page of the front-most document
   var document = sketch.selectedDocument
   var page = document.selectedPage
 
-  // we want to make a new group on the page, then put a new image layer into it, and set
+  // Then we want to make a new group on the page, then put a new image layer into it, and set
   // that layer to use the resource image we located earlier
   var group = page.newGroup({frame: sketch.rectangle(0, 0, 200, 200)})
   var image = group.newImage({frame: sketch.rectangle(50, 50, 100, 100), imageURL:imageURL})
 
-  // lets also make a text layer with a message
+  // Finally, lets also make a text layer with a message
   // to the world on it...
   var text = group.newText({fixedWidth: true, alignment: NSTextAlignmentCenter, systemFontSize: 24, text:"Hello World"})
   text.frame = sketch.rectangle(0, 160, 200, 30) // adjust the frame last, after the font/size/alignment etc has been set up
 };
 
-// And that's it. Job done.
+// ## Job Done
+// And that's it.
 //
 // Obviously this is only the tip of the iceberg. Check out some of the other examples to see what else can be done.
 //
