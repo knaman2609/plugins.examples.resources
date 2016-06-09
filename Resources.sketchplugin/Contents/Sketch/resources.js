@@ -79,7 +79,7 @@ function onRun(context) {
   // against changes to Sketch. We fix the API when an underlying change to Sketch
   // would have broken it - so it's the recommended way to work if you can.*
 
-  // So first, let's fetch the root api object. The object we're given back represents the
+  // So first, let's fetch the root API object. The object we're given back represents the
   // Sketch application itself, so we'll put it into a variable called `sketch`.
   var sketch = context.api()
   sketch.log("Sketch version is " + sketch.version)
@@ -94,17 +94,24 @@ function onRun(context) {
 
   // ### Making Some New Layers
 
-  // Next we want to use the api to extract the selected page of the front-most document
+  // Next we want to extract the selected page of the selected (front-most) document
   var document = sketch.selectedDocument
   var page = document.selectedPage
 
   // Then we want to make a new group on the page, then put a new image layer into it, and set
   // that layer to use the resource image we located earlier
+  //
+  // We can make layers in any container using `newGroup`, `newImage`, `newText` and so on.
+  // These functions all take a single parameter which is a dictionary of properties to set
+  // on the new layer. Typically you will want to set the frame of the new layer, and perhaps
+  // some other properties such as its name, style, and so on.
   var group = page.newGroup({frame: sketch.rectangle(0, 0, 200, 200)})
   var image = group.newImage({frame: sketch.rectangle(50, 50, 100, 100), imageURL:imageURL})
 
-  // Finally, lets also make a text layer with a message
-  // to the world on it...
+  // Finally, lets also make a text layer with a message to the world on it...
+  // In this case we don't supply the frame of the layer to the `newText` function, since we want to first
+  // adjust the font size, alignment and set it to be fixedWidth. Only once we've done these do we change
+  // the frame.
   var text = group.newText({fixedWidth: true, alignment: NSTextAlignmentCenter, systemFontSize: 24, text:"Hello World"})
   text.frame = sketch.rectangle(0, 160, 200, 30) // adjust the frame last, after the font/size/alignment etc has been set up
 };
