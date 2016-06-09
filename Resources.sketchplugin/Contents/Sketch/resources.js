@@ -66,19 +66,21 @@ function onRun(context) {
   // ### Using The Sketch API
   // We are passed a context variable when we're run.
   // This is a dictionary containing a reference to the document,
-  // the current selection, the Plugin, current URL and more.
+  // the current selection, the Plugin that is running, and more.
   //
-  // One of the things that the context contains is a Sketch api function,
+  // One of the things that the context contains is a Sketch `api()' function,
   // which when called gives you back a javascript object that you can
-  // use to interact with Sketch.
+  // use to interact with Sketch in a clean way.
   //
   // Note: *There are ways of interacting directly with the raw Sketch objects instead,
-  // but these tend to change when we update Sketch, which can make your Plugin scripts
-  // break easily. By going through the Sketch API, you gain an extra level of protection
-  // against changes to Sketch - since we fix the API when an underlying change to Sketch
+  // using the other items that the context contains. The problem is that these objects
+  // tend to change when we update Sketch, which can make your Plugin scripts
+  // break easily. By going through the Sketch API instead, you gain an extra level of protection
+  // against changes to Sketch. We fix the API when an underlying change to Sketch
   // would have broken it - so it's the recommended way to work if you can.*
 
-  // So first, let's fetch the sketch object.
+  // So first, let's fetch the root api object. The object we're given back represents the
+  // Sketch application itself, so we'll put it into a variable called `sketch`.
   var sketch = context.api()
   sketch.log("Sketch version is " + sketch.version)
   sketch.log("Sketch API version is " + sketch.api_version)
