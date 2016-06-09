@@ -2,7 +2,7 @@
     "name" : "Resources",
     "identifier" : "com.sketchapp.examples.resources",
     "version" : "1.0",
-    "description" : "An example of a plugin which contains bundled resources (an image, in this case).",
+    "description" : "An example of a Plugin which contains bundled resources (an image, in this case).",
     "authorEmail" : "sam@sketchapp.com",
     "author" : "Sam Deane",
     "commands" : [
