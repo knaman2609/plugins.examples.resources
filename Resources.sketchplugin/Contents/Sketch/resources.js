@@ -105,15 +105,15 @@ function onRun(context) {
   // These functions all take a single parameter which is a dictionary of properties to set
   // on the new layer. Typically you will want to set the frame of the new layer, and perhaps
   // some other properties such as its name, style, and so on.
-  var group = page.newGroup({frame: sketch.rectangle(0, 0, 200, 200)})
-  var image = group.newImage({frame: sketch.rectangle(50, 50, 100, 100), imageURL:imageURL})
+  var group = page.newGroup({frame: new sketch.Rectangle(0, 0, 200, 200)})
+  var image = group.newImage({frame: new sketch.Rectangle(50, 50, 100, 100), imageURL:imageURL})
 
   // Finally, lets also make a text layer with a message to the world on it...
   // In this case we don't supply the frame of the layer to the `newText` function, since we want to first
   // adjust the font size, alignment and set it to be fixedWidth. Only once we've done these do we change
   // the frame.
   var text = group.newText({fixedWidth: true, alignment: NSTextAlignmentCenter, systemFontSize: 24, text:"Hello World"})
-  text.frame = sketch.rectangle(0, 160, 200, 30) // adjust the frame last, after the font/size/alignment etc has been set up
+  text.frame = new sketch.Rectangle(0, 160, 200, 30) // adjust the frame last, after the font/size/alignment etc has been set up
 };
 
 // ## Job Done
